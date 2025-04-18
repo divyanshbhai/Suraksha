@@ -1,0 +1,104 @@
+<% layout("/boilerplate/index") %>
+<div class="map-container">
+    <div id="map"> </div>
+    <div id="map2"></div>
+    <div class="map-text">
+        <div class="switch">
+            <div class="incident-section">
+                <button onclick="change('incident')">Incidents</button>
+            </div>
+            <div class="tips-section">
+                <button onclick="change('tips')">Tips</button>
+            </div>
+        </div>
+        <div id="map-text">
+            <br>
+        <h4>Have you been sexually harassed?</h4>
+        <br>
+        <p>Join the 50000+ people who have shared their experiences to make public spaces safer. Sharing your experience helps us identify patterns and create safer spaces. Information is analysed to engage our communities to find solutions and hold our civic and police officials accountable to have better policies and infrastructure. Your information remains anonymous.</p>
+        <a href="/form" class="btn chat-btn">Share Incident Anonymously</a>
+        </div>
+        
+    </div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <script>
+        function createIncidentMap() {
+            var map = L.map('map').setView([20.5937, 78.9629], 5); // Centered on India, zoom level 5
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            var markers = L.markerClusterGroup();
+
+            var incedents = <%- JSON.stringify(incedents) %>;
+            for (var i = 0; i < incedents.length; i++) {
+                var incedent = incedents[i];
+                var marker = L.marker([incedent.location.lat, incedent.location.long])
+                                .bindPopup(`<b>Type</b>: ${incedent.type}<br><b>City</b>: ${incedent.City}<br><b>What</b>: ${incedent.what}<br><b>Age</b>: ${incedent.age}&nbsp;<b>Gender</b>: ${incedent.gender}<br><b>Date</b>: ${incedent.when.split('T')[0]}&nbsp;<b>Time</b>: ${incedent.Time}<br><b>Experience</b>: ${incedent.experience}`);
+                markers.addLayer(marker);
+            }
+
+            map.addLayer(markers);
+        }
+        createIncidentMap();
+
+        function createTipMap() {
+            var map2 = L.map('map2').setView([20.5937, 78.9629], 5);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map2);
+
+            var markers = L.markerClusterGroup();
+
+            var tips = <%- JSON.stringify(tips) %>;
+            console.log(tips);
+            for (var i = 0; i < tips.length; i++) {
+                var tip = tips[i];
+                var marker = L.marker([tip.location.lat, tip.location.long])
+                                .bindPopup(`<b>Tip</b>: ${tip.text}<br><b>Date</b>: ${tip.date.split('T')[0]}`);
+                markers.addLayer(marker);
+            }
+
+            map2.addLayer(markers);
+        }
+    </script>
+    <script>
+        function change(sec){
+            if(sec == 'incident'){
+                document.querySelector('.incident-section').style.backgroundColor = '#f9ebe0';
+                document.querySelector('.tips-section').style.backgroundColor = '#f5a7a8';
+                // Call the function to create the incident mapx
+                document.getElementById('map').style.display = 'block';
+                document.getElementById('map2').style.display = 'none';
+                document.getElementById('map-text').innerHTML = '';
+                document.getElementById('map-text').innerHTML = `
+        </div>
+        <br>
+        <h4>Have you been sexually harassed?</h4>
+        <br>
+        <p>Join the 50000+ people who have shared their experiences to make public spaces safer. Sharing your experience helps us identify patterns and create safer spaces. Information is analysed to engage our communities to find solutions and hold our civic and police officials accountable to have better policies and infrastructure. Your information remains anonymous.</p>
+        <a href="/form" class="btn chat-btn">Share Incident Anonymously</a>`;
+                createIncidentMap();
+            }else{
+                document.querySelector('.incident-section').style.backgroundColor = '#f5a7a8';
+                document.querySelector('.tips-section').style.backgroundColor = '#f9ebe0';
+                // Call the function to create the tips map
+                document.getElementById('map').style.display = 'none';
+                document.getElementById('map2').style.display = 'block';
+                document.getElementById('map-text').innerHTML = '';
+                document.getElementById('map-text').innerHTML = `
+        <br>
+        <h4>How do you navigate public places safely?</h4>
+        <br>
+        <p>Have you found a way out of a potentially traumatic experience? Have you identified ways to commute through your city safely? Tell us what you do for your safety so that others can do the same.</p>
+        <a href="/tipform" class="btn chat-btn">Share Tips Anonymously</a>`;
+                createTipMap();
+            }
+        }
+    </script>

@@ -1,0 +1,61 @@
+<% layout("/boilerplate/index") %>
+<div class="container container-map">
+    <h2>Submit a Tip</h2>
+
+  <form action="/submit-tip" class="tip-form" method="POST">
+    <div class="section">
+    <div>
+      <label for="text">Tip Text:</label>
+      <textarea name="text" id="text" required></textarea>
+    </div>
+    <div id="map_container"></div>
+    <div style="display: none;">
+      <label for="lat">Latitude:</label>
+      <input type="number" name="lat" id="lat" step="any" required readonly>
+    </div>
+
+    <div style="display: none;">
+      <label for="long">Longitude:</label>
+      <input type="number" name="long" id="long" step="any" required readonly>
+    </div>
+
+    <div>
+      <label for="date">Date:</label>
+      <input type="date" class="form-control" name="date" id="date" required>
+    </div>
+
+    <div>
+      <button type="submit">Submit</button>
+    </div>
+  </div>
+  </form>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Set current date
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('date').value = today;
+
+    // Initialize Map
+    const map = L.map('map_container').setView([20.5937, 78.9629], 5); // Default to India
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    let marker;
+
+    map.on('click', function(e) {
+      const { lat, lng } = e.latlng;
+      document.getElementById('lat').value = lat.toFixed(6);
+      document.getElementById('long').value = lng.toFixed(6);
+
+      if (marker) {
+        marker.setLatLng(e.latlng);
+      } else {
+        marker = L.marker(e.latlng).addTo(map);
+      }
+    });
+  </script>
+</div>

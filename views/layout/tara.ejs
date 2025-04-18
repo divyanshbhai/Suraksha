@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    
+</head>
+<body>
+    <center>
+<div class="containerr">
+    <div class="main">
+        <div class="nav">
+            <img src="/assets/navlogo.png" style="margin-left: 20px;" width="180" alt="Logo">
+            <h2 id="status"><i class="fa-solid fa-face-smile"></i></h2>
+        </div>
+        <div class="chat-area">
+            <div class="chats">
+                
+            </div>
+            <div class="chatbox">
+                <input type="text" name="userchat" id="userchat">
+                <button class="send-btn" onclick="sendMessage();"><i class="fa-regular fa-paper-plane fa-lg"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+</center>
+<script src="https://js.puter.com/v2/"></script>
+<script>
+    let chatslog = [];
+
+function getLastMessages(chatLog, maxMessages = 10) {
+    const lastMessages = chatLog.slice(-maxMessages * 2);
+    let formattedChat = [];
+    for (let i = 0; i < lastMessages.length; i += 2) {
+        formattedChat.push(`user: ${lastMessages[i]}. bot: ${lastMessages[i + 1]}`);
+    }
+    
+    return formattedChat.join(' ');
+}
+
+
+async function sendMessage(){
+    let prompt = `You are Tara, a friendly and caring AI assistant in the Suraksha women safety app. Your mission is to help women feel safe, supported, and heard. You help users anonymously report incidents, offer safety tips, and respond to emergencies. You are calm, supportive, and never judgmental. Always use simple and respectful language. Prioritize privacy, empathy, and clear communication.
+previous chats: "${getLastMessages(chatslog, 10)}"
+give response in 2 section for example: "message response from you <> mood status ('<i class="fa-solid fa-face-tired"></i>' , '<i class="fa-solid fa-face-tired"></i>', '<i class="fa-solid fa-face-surprise"></i>', '<i class="fa-solid fa-face-smile-beam"></i>', '<i class="fa-solid fa-face-sad-tear"></i>', '<i class="fa-solid fa-face-sad-cry"></i>', '<i class="fa-solid fa-face-meh"></i>', '<i class="fa-solid fa-face-laugh-beam"></i>', '<i class="fa-solid fa-face-frown-open"></i>', '<i class="fa-solid fa-face-frown"></i>', '<i class="fa-solid fa-face-angry"></i>') choose any one mood imoje"
+remember each separate with the '<>'  for example "this is very intersting.<> <i class="fa-solid fa-face-tired"></i>"`
+    let text = document.getElementById('userchat').value;
+    if(text!=''){
+        let chats = document.querySelector('.chats');
+        let userchat = document.createElement('div');
+        userchat.classList.add('userchat');
+        userchat.innerHTML = `<div class="usericon">
+                            <i class="fa-solid fa-circle-user fa-lg"></i>
+                        </div><div class="user-content">${text}</div>`;
+        chats.append(userchat);
+        console.log(text)
+
+        let botchat = document.createElement('div');
+        botchat.classList.add('botchat');
+        botchat.innerHTML = ` <div class="boticon">
+                            <i class="fa-solid fa-robot fa-lg"></i>
+                        </div>
+                        <div class="bot-content">
+                            <div class="loader"></div>
+                        </div>`;
+        chats.append(botchat);
+        chatslog.push(text);
+        document.getElementById('userchat').value='';
+        scrollToBottom();
+        let responce = await puter.ai.chat(prompt+', user message please answer it: '+text)
+        let str = responce.message.content;
+        let bot = str.split('<>')
+        botchat.querySelector('.bot-content').innerHTML = `<p>${bot[0]}</p><button class="btn text-light audio-btn" onclick="playaudio(this);"><i class="fa-regular fa-circle-play"></i></button>`;
+        console.log(bot[1])
+        document.getElementById('status').innerHTML = `<b><u>${bot[1]}</u></b>`;
+        scrollToBottom();
+        chatslog.push(bot[0]);
+        console.log(chatslog)
+    }   
+
+}
+
+function playaudio(btn){
+    let text = btn.parentNode.firstElementChild.innerText;
+    puter.ai.txt2speech(text, language = 'en-IN').then((audio)=>{
+        audio.play();
+    });
+}
+
+function scrollToBottom() {
+    let div = document.querySelector('.chats');
+    div.scrollTop = div.scrollHeight;
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

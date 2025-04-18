@@ -1,0 +1,292 @@
+<% layout("/boilerplate/index") %>
+
+<div class="container container-map">
+    <h2>Anonymous Incident Report</h2>
+
+    <form id="incident-report-form">
+        <div class="section">
+            <h3 class="section-title">Location Details</h3>
+            <div class="form-group">
+                <label for="country">Country<span class="important">*</span></label>
+                <input type="text" id="country" class="form-control" name="country" required>
+            </div>
+            <div class="form-group">
+                <label for="city">City<span class="important">*</span></label>
+                <input type="text" id="city" class="form-control" name="city" required>
+            </div>
+            <div style="margin-bottom: 20px; padding: 15px; background-color: #ffa695; border: 1px solid #dee2e6; border-radius: 4px; color: #495057; font-size: 0.9rem;">
+                <p style="margin-bottom: 10px;">We understand it is difficult to recall one's traumatic experiences. If you feel uncomfortable at any time, know that you can exit. If you have not hit the submit button, your data will not be saved.</p>
+                <p style="margin-bottom: 10px;">Even though you are sharing your experience anonymously, we need your consent to include your experience in our database of crowdsourced data.</p>
+                <div style="display: flex; align-items: center;">
+                    <input type="checkbox" id="consentCheckbox" name="consent" value="agreed" required style="margin-right: 8px;">
+                    <label for="consentCheckbox" style="margin-bottom: 0; font-weight: bold;">I consent to my anonymous data being included in the database.</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">Reporter Information</h3>
+            <div class="form-group">
+                <label>Who are you sharing for?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="reporting_for" value="myself" checked> Myself</label>
+                    <label><input type="radio" name="reporting_for" value="someone_else"> Someone else</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="age">How old are you?<span class="important">*</span> <span class="note">(In case you are reporting for someone else, please make sure you answer the questions on their behalf)</span></label>
+                <input type="number" id="age" class="form-control" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender?<span class="important">*</span></label>
+                <select id="gender" name="gender" class="form-control" required>
+                    <option value="">Select your gender</option>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">Incident Details</h3>
+            <div class="form-group">
+                <label for="what_happened">Can you tell us what happened?<span class="important">*</span></label>
+                <textarea id="what_happened" class="form-control" name="what_happened" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="when_happened">Can you tell us when this happened?<span class="important">*</span></label>
+                <input type="date" id="when_happened"  class="form-control" name="when_happened" required>
+            </div>
+            <div class="form-group">
+                <label for="time_happened">Can you tell us what time this happened?<span class="important">*</span></label>
+                <input type="time" id="time_happened" class="form-control" name="time_happened" required>
+            </div>
+            <div class="form-group">
+                <label>What type of sexual violence did you experience? (select all that apply)<span class="important">*</span></label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="violence_type[]" value="rape_sexual_assault"> Rape / Sexual Assault</label>
+                    <label><input type="checkbox" name="violence_type[]" value="chain_snatching_robbery"> Chain Snatching / Robbery</label>
+                    <label><input type="checkbox" name="violence_type[]" value="domestic_violence"> Domestic Violence</label>
+                    <label><input type="checkbox" name="violence_type[]" value="physical_assault"> Physical Assault</label>
+                    <label><input type="checkbox" name="violence_type[]" value="stalking"> Stalking</label>
+                    <label><input type="checkbox" name="violence_type[]" value="ogling_facial_expressions_staring"> Ogling / Facial Expressions / Staring</label>
+                    <label><input type="checkbox" name="violence_type[]" value="taking_photos_without_permission"> Taking Photos Without Permission</label>
+                    <label><input type="checkbox" name="violence_type[]" value="indecent_exposure_masturbation"> Indecent Exposure / Masturbation in Public</label>
+                    <label><input type="checkbox" name="violence_type[]" value="touching_groping"> Touching / Groping</label>
+                    <label><input type="checkbox" name="violence_type[]" value="showing_pornography"> Showing Pornography Without Consent</label>
+                    <label><input type="checkbox" name="violence_type[]" value="commenting_sexual_invites"> Commenting / Sexual Invites</label>
+                    <label><input type="checkbox" name="violence_type[]" value="online_harassment"> Online Harassment</label>
+                    <label><input type="checkbox" name="violence_type[]" value="human_trafficking"> Human Trafficking</label>
+                    <label><input type="checkbox" name="violence_type[]" value="others"> Others</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">Reporting & Contributing Factors</h3>
+            <div class="form-group">
+                <label>Have you reported the incident to the police?<span class="important">*</span></label>
+                <div class="radio-group">
+                    <label><input type="radio" name="reported_police" value="yes"> Yes I did</label>
+                    <label><input type="radio" name="reported_police" value="future"> I will, in the future</label>
+                    <label><input type="radio" name="reported_police" value="unsure"> I’m not sure if I want to</label>
+                    <label><input type="radio" name="reported_police" value="no"> No</label>
+                    <label><input type="radio" name="reported_police" value="tried"> I tried</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Do you feel any of the below led to you being attacked? (Select all that apply)<span class="important">*</span></label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="contributing_factors[]" value="gender"> My gender</label>
+                    <label><input type="checkbox" name="contributing_factors[]" value="sexuality"> My sexuality / Perceived sexuality</label>
+                    <label><input type="checkbox" name="contributing_factors[]" value="intimidation"> Because the harasser wanted to intimidate me</label>
+                    <label><input type="checkbox" name="contributing_factors[]" value="ethnicity"> My ethnicity / race / caste</label>
+                    <label><input type="checkbox" name="contributing_factors[]" value="sexual_assault"> Because the harasser wanted to sexually assault me</label>
+                    <label><input type="checkbox" name="contributing_factors[]" value="disability"> My disability</label>
+                    <label><input type="checkbox" name="contributing_factors[]" value="education"> My level of education</label>
+                    <label><input type="checkbox" name="contributing_factors[]" value="minority_status"> Minority status</label>
+                    <label><input type="checkbox" name="contributing_factors[]" value="climate_change"> Climate change</label>
+                    <label><input type="checkbox" name="contributing_factors[]" value="religion"> My religion</label>
+                    <label><input type="checkbox" name="contributing_factors[]" value="migrant_status"> My migrant status</label>
+                    <label><input type="checkbox" name="contributing_factors[]" value="other"> Other</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">Additional Information & Location</h3>
+            <div class="form-group">
+                <label for="additional_info">Would you like to add anything else about your experience?<span class="important">*</span></label>
+                <textarea id="additional_info" class="form-control" name="additional_info" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="location_map">Please tell us where the incident took place<span class="important">*</span></label>
+                <div id="map_container"></div>
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
+                <p class="note">Click on the map to mark the location of the incident.</p>
+                <div id="location_display"></div>
+            </div>
+
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">How did you hear about us?</h3>
+            <div class="form-group">
+                <label for="how_heard">How did you hear about Suraksha?<span class="important">*</span></label>
+                <select id="how_heard" class="form-control" name="how_heard" required>
+                    <option value="">Select an option</option>
+                    <option value="ngo">NGO</option>
+                    <option value="facebook_twitter">Facebook/Twitter</option>
+                    <option value="email">Email</option>
+                    <option value="acquaintance">In-person from acquaintance</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit">Submit Anonymously</button>
+
+        <p class="exit-note">Thank you so much for sharing this information with us. You are helping build safer cities. All the information you provided is anonymous and will continue to be.</p>
+    </form>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+<script>
+    // Function to handle form submission
+    function submitIncidentReport() {
+        // Get the form element
+        const form = document.getElementById('incident-report-form');
+
+        // Prevent the default form submission
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Check if the consent checkbox is checked
+            const consentCheckbox = document.getElementById('consentCheckbox');
+            if (!consentCheckbox.checked) {
+                alert('Please consent to your anonymous data being included in the database to submit the report.');
+                return;
+            }
+
+            // Collect form data
+            const formData = new FormData(form);
+            const reportData = {};
+            formData.forEach((value, key) => {
+                if (reportData[key]) {
+                    if (!Array.isArray(reportData[key])) {
+                        reportData[key] = [reportData[key]];
+                    }
+                    reportData[key].push(value);
+                } else {
+                    reportData[key] = value;
+                }
+            });
+
+            // Convert the 'when_happened' date to ISO 8601 format (as seen in the example)
+            const whenHappenedInput = document.getElementById('when_happened');
+            if (whenHappenedInput && whenHappenedInput.value) {
+                reportData.when = new Date(whenHappenedInput.value).toISOString();
+            }
+
+            // Extract latitude and longitude from hidden fields
+            const latitudeInput = document.getElementById('latitude');
+            const longitudeInput = document.getElementById('longitude');
+            if (latitudeInput && longitudeInput && latitudeInput.value && longitudeInput.value) {
+                reportData.location = {
+                    lat: parseFloat(latitudeInput.value),
+                    long: parseFloat(longitudeInput.value)
+                };
+            }
+
+            // Rename keys to match the example post body (optional, adjust to your backend expectations)
+            const formattedData = {
+                Country: reportData.country,
+                City: reportData.city,
+                For: reportData.reporting_for,
+                age: parseInt(reportData.age),
+                gender: reportData.gender,
+                what: reportData.what_happened,
+                when: reportData.when,
+                Time: reportData.time_happened,
+                type: reportData['violence_type[]'] || [], // Handle multiple checkboxes as an array
+                reported: reportData.reported_police,
+                feel: reportData['contributing_factors[]'] || [], // Handle multiple checkboxes as an array
+                experience: reportData.additional_info,
+                location: reportData.location
+            };
+
+            // Log the formatted data (replace with your actual submission logic)
+            console.log('Formatted Report Data:', formattedData);
+
+            // --- START OF ACTUAL SUBMISSION LOGIC (REPLACE WITH YOUR BACKEND ENDPOINT) ---
+            fetch('/api/anonymous-reports', { // Replace with your server endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formattedData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(`HTTP error! status: ${response.status}, body: ${JSON.stringify(errorData)}`);
+                    });
+                }
+                return response.json();
+            })
+            .then(responseData => {
+                console.log('Success:', responseData);
+                alert('Report submitted successfully! Thank you for your contribution.');
+                form.reset();
+                // Optionally clear the map marker and location display
+                const mapContainer = document.getElementById('map_container');
+                if (mapContainer && mapContainer.__leaflet_map) {
+                    mapContainer.__leaflet_map.eachLayer(layer => {
+                        if (layer instanceof L.Marker) {
+                            mapContainer.__leaflet_map.removeLayer(layer);
+                        }
+                    });
+                }
+                const locationDisplay = document.getElementById('location_display');
+                if (locationDisplay) {
+                    locationDisplay.textContent = '';
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting report:', error);
+                alert('There was an error submitting the report. Please try again later.');
+            });
+            // --- END OF ACTUAL SUBMISSION LOGIC ---
+        });
+    }
+
+    // Call the submit function and initialize the map when the DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        submitIncidentReport(); // Initialize the form submission logic
+
+        // Initialize the Leaflet map
+        var map = L.map('map_container').setView([28.5355, 77.3910], 13); // Centered on Noida
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var marker;
+
+        map.on('click', function(e) {
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+            document.getElementById('latitude').value = e.latlng.lat;
+            document.getElementById('longitude').value = e.latlng.lng;
+            document.getElementById('location_display').textContent = 'Latitude: ' + e.latlng.lat.toFixed(6) + ', Longitude: ' + e.latlng.lng.toFixed(6);
+        });
+    });
+</script>
